@@ -59,6 +59,48 @@ class Character {
 
 }
 
+class AdventurerFactory {
+
+    constructor(role) {
+
+        this.role = role;
+
+        this.adventurers = [];
+
+    }
+
+    generate(name) {
+
+        const newAdventurer = new Adventurer(name, this.role);
+
+        this.adventurers.push(newAdventurer);
+
+
+
+    }
+
+    findByIndex(index) {
+
+        return this.adventurers[index];
+
+    }
+
+    findByName(name) {
+
+        return this.adventurers.find((a) => a.name === name);
+
+    }
+
+}
+
+
+
+const healers = new AdventurerFactory("Healer");
+
+const robin = healers.generate("Robin");
+
+
+
 
 //part 3
 class Adventurer extends Character {
@@ -97,6 +139,36 @@ class Adventurer extends Character {
 
     }
 
+
+    //duel method
+
+    duel(opponent) {
+        console.log(`\n Duel begins between ${this.name} and ${opponent.name}!`);
+
+        while (this.health > 50 && opponent.health > 50) {
+
+            const myRoll = Math.floor(Math.random() * 20) + 1;
+            const oppRoll = Math.floor(Math.random() * 20) + 1;
+
+            console.log(`${this.name} rolls ${myRoll} | ${opponent.name} rolls ${oppRoll}`);
+
+            if (myRoll > oppRoll) {
+                opponent.health -= 1;
+                console.log(`${opponent.name} loses 1 health! (${opponent.health} HP left)`);
+            } else if (oppRoll > myRoll) {
+                this.health -= 1;
+                console.log(`${this.name} loses 1 health! (${this.health} HP left)`);
+            } else {
+                console.log("It's a tie. No damage dealt.");
+            }
+
+            console.log("-----");
+        }
+
+        const winner = this.health > 50 ? this.name : opponent.name;
+        console.log(`The duel is over! Winner: ${winner}\n`);
+    }
+
 }
 
 class Companion extends Character {
@@ -128,9 +200,12 @@ robin.companion.companion.type = "Flea";
 robin.companion.companion.inventory = ["small hat", "sunglasses"];
 */
 
-const robin = new Adventurer("Robin", "Fighter");
-robin.companion = new Companion("Leo", "Cat");
-robin.companion.companion = new Companion("Frank", "Flea");
+//const robin = new Adventurer("Robin", "Fighter");
+//const brook = new Adventurer("Brook", "Necromancer");
+//robin.companion = new Companion("Leo", "Cat");
+//robin.companion.companion = new Companion("Frank", "Flea");
+
+//robin.duel(brook);
 
 /*
 console.log(robin.companion.companion.roll());
