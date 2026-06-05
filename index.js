@@ -63,7 +63,7 @@ class Character {
 //part 3
 class Adventurer extends Character {
 
-    static ROLES = ["Fighter", "Barbarian", "Necromancer", "Healer", "Paladin", "Rogue", "Warlock", "Monk", "Ranger"];
+    //static ROLES = ["Fighter", "Barbarian", "Necromancer", "Healer", "Paladin", "Rogue", "Warlock", "Monk", "Ranger"];
 
     constructor(name, role) {
 
@@ -71,7 +71,7 @@ class Adventurer extends Character {
 
         // Adventurers have specialized roles.
 
-        this.role = ROLES;
+        this.role = role;
 
 
 
@@ -94,16 +94,18 @@ class Adventurer extends Character {
 }
 
 class Companion extends Character {
-    constructor(name, role, type) {
+    constructor(name, type) {
 
         super(name);
 
-        this.role = role;
-
         this.type = type;
 
+        this.companion = null
     }
-}
+    assistCall() {
+        console.log(`${this.name} the ${this.type} joins the battle!`)
+    }
+};
 /*
 const robin = new Character("Robin");
 
@@ -121,9 +123,8 @@ robin.companion.companion.inventory = ["small hat", "sunglasses"];
 */
 
 const robin = new Adventurer("Robin");
-robin.companion = new Companion("Leo");
-robin.companion.companion = new Companion("Frank");
-
+robin.companion = new Companion("Leo", "Cat");
+robin.companion.companion = new Companion("Frank", "Flea");
 
 /*
 console.log(robin.companion.companion.roll());
