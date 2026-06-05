@@ -63,13 +63,19 @@ class Character {
 //part 3
 class Adventurer extends Character {
 
-    //static ROLES = ["Fighter", "Barbarian", "Necromancer", "Healer", "Paladin", "Rogue", "Warlock", "Monk", "Ranger"];
+    static ROLES = ["Fighter", "Barbarian", "Necromancer", "Healer", "Paladin", "Rogue", "Warlock", "Monk", "Ranger"];
 
     constructor(name, role) {
 
         super(name);
 
         // Adventurers have specialized roles.
+
+        if (!Adventurer.ROLES.includes(role)) {
+            throw new Error(
+                `Invalid role: ${role}. Valid roles are: ${Adventurer.ROLES.join(", ")}`
+            );
+        }
 
         this.role = role;
 
@@ -122,7 +128,7 @@ robin.companion.companion.type = "Flea";
 robin.companion.companion.inventory = ["small hat", "sunglasses"];
 */
 
-const robin = new Adventurer("Robin");
+const robin = new Adventurer("Robin", "Fighter");
 robin.companion = new Companion("Leo", "Cat");
 robin.companion.companion = new Companion("Frank", "Flea");
 
